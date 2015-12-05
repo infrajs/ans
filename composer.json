@@ -1,0 +1,7 @@
+{
+	"name": "infrajs/ans",
+	"license": "GPL3",
+	"autoload": {
+		"psr-4": { "infrajs\\ans\\": "/" }
+	}
+}
