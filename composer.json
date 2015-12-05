@@ -1,5 +1,6 @@
 {
 	"name": "infrajs/ans",
+	"description": "Standart json-answer for php handlers",
 	"license": "GPL3",
 	"autoload": {
 		"psr-4": { "infrajs\\ans\\": "/" }
