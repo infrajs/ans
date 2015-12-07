@@ -1,12 +1,13 @@
 <?php
 use infrajs\ans\Ans;
 
-require_once('../../../../vendor/autoload.php');
+if (!is_file('vendor/autoload.php')) {
+    chdir('../../../');
+    require_once('vendor/autoload.php');
+}
 
 $ans=array();
 $ans['title']='Проверка Ans::методов';
-
-
 
 ob_start();
 Ans::err($ans,'Error');
