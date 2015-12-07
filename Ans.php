@@ -5,7 +5,7 @@ namespace infrajs\ans;
 class Ans
 {
 	public static $conf = array();
-	public static function err($ans, $msg = null)
+	public static function err($ans = array(), $msg = null)
 	{
 		$ans['result'] = 0;
 		header('Cache-Control: no-store');
@@ -15,7 +15,7 @@ class Ans
 
 		return static::ans($ans);
 	}
-	public static function log($ans, $msg = '', $data = null, $debug = false)
+	public static function log($ans = array(), $msg = '', $data = null, $debug = false)
 	{
 		$ans['result'] = 0;
 		if ($msg) {
@@ -29,7 +29,7 @@ class Ans
 
 		return static::ans($ans);
 	}
-	public static function ret($ans, $msg = false)
+	public static function ret($ans = array(), $msg = false)
 	{
 		if ($msg) {
 			$ans['msg'] = $msg;
@@ -38,7 +38,7 @@ class Ans
 
 		return static::ans($ans);
 	}
-	public static function ans($ans)
+	public static function ans($ans = array())
 	{
 		$fn=static::$conf['isReturn'];
 		if ($fn()) {
@@ -50,7 +50,7 @@ class Ans
 			echo json_encode($ans, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 		}
 	}
-	public static function txt($ans)
+	public static function txt($ans = array())
 	{
 		if (Ans::$conf['isReturn']()) {
 			return $ans;
