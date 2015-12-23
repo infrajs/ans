@@ -1,14 +1,14 @@
 <?php
 
 namespace infrajs\ans;
-
+use infrajs\nostore;
 class Ans
 {
 	public static $conf = array();
 	public static function err($ans = array(), $msg = null)
 	{
 		$ans['result'] = 0;
-		header('Cache-Control: no-store');
+		//Nostore::on();
 		if ($msg) {
 			$ans['msg'] = $msg;
 		}
@@ -41,18 +41,26 @@ class Ans
 	public static function ans($ans = array())
 	{
 		$fn=static::$conf['isReturn'];
+		
 		if ($fn()) {
 			return $ans;
 		} else {
 			//error_reporting(E_ALL);
 			//ini_set('display_errors',1);
 			header('Content-type:application/json; charset=utf-8');//Ответ формы не должен изменяться браузером чтобы корректно конвертирвоаться в объект js, если html то ответ меняется
-			echo json_encode($ans, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+			$text=json_encode($ans, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+			if(!$text) {
+				echo '<pre>';
+				print_r($ans);
+				throw new \Exception('Данные не могут быть конвертированны в json');
+			}
+			echo $text;
 		}
 	}
 	public static function txt($ans = array())
 	{
-		if (Ans::$conf['isReturn']()) {
+		$conf=Ans::$conf;
+		if ($conf['isReturn']()) {
 			return $ans;
 		} else {
 			header('Content-type:text/html; charset=utf-8');//Ответ формы не должен изменяться браузером чтобы корректно конвертирвоаться в объект js, если html то ответ меняется
