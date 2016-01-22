@@ -67,7 +67,7 @@ class Ans
 			echo $ans;
 		}
 	}
-	public static function get($name, $type = null, $def = null){
+	public static function GET($name, $type = null, $def = null){
 		/*
 			"bool"
 			"int"
