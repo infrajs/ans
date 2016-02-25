@@ -41,7 +41,7 @@ class Ans
 	public static function ans($ans = array())
 	{
 		$fn=static::$conf['isReturn'];
-		
+
 		if ($fn()) {
 			return $ans;
 		} else {
