@@ -57,7 +57,7 @@ class Ans
 			echo $text;
 		}
 	}
-	public static function txt($ans = array())
+	public static function txt($ans)
 	{
 		$conf=Ans::$conf;
 		if ($conf['isReturn']()) {
