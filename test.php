@@ -81,3 +81,5 @@ $res = Ans::GET('test', 'float');
 assert(50.0 === $res);
 $res = Ans::GET('test', 'object');
 assert(50 === $res->scalar);
+
+echo '{"result":1}';
