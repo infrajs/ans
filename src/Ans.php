@@ -57,6 +57,27 @@ class Ans
 			echo $text;
 		}
 	}
+	
+	public static function js($ans)
+	{
+		$conf=Ans::$conf;
+		if ($conf['isReturn']()) {
+			return $ans;
+		} else {
+			header('Content-Type: application/javascript; charset=utf-8');
+			echo $ans;
+		}
+	}
+	public static function html($ans)
+	{
+		$conf=Ans::$conf;
+		if ($conf['isReturn']()) {
+			return $ans;
+		} else {
+			header('Content-type:text/html; charset=utf-8');//Ответ формы не должен изменяться браузером чтобы корректно конвертирвоаться в объект js, если html то ответ меняется
+			echo $ans;
+		}
+	}
 	public static function txt($ans)
 	{
 		$conf=Ans::$conf;
