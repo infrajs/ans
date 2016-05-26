@@ -84,7 +84,6 @@ class Ans
 		if ($conf['isReturn']()) {
 			return $ans;
 		} else {
-			header('Content-type:text/html; charset=utf-8');//Ответ формы не должен изменяться браузером чтобы корректно конвертирвоаться в объект js, если html то ответ меняется
 			echo $ans;
 		}
 	}
