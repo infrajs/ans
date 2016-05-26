@@ -60,7 +60,7 @@ class Ans
 	
 	public static function js($ans)
 	{
-		$conf=Ans::$conf;
+		$conf = Ans::$conf;
 		if ($conf['isReturn']()) {
 			return $ans;
 		} else {
@@ -70,7 +70,7 @@ class Ans
 	}
 	public static function html($ans)
 	{
-		$conf=Ans::$conf;
+		$conf = Ans::$conf;
 		if ($conf['isReturn']()) {
 			return $ans;
 		} else {
@@ -80,10 +80,21 @@ class Ans
 	}
 	public static function txt($ans)
 	{
-		$conf=Ans::$conf;
+		$conf = Ans::$conf;
 		if ($conf['isReturn']()) {
 			return $ans;
 		} else {
+			header('Content-type:text/plain; charset=utf-8');
+			echo $ans;
+		}
+	}
+	public static function css($ans)
+	{
+		$conf = Ans::$conf;
+		if ($conf['isReturn']()) {
+			return $ans;
+		} else {
+			header('Content-type:text/css; charset=utf-8');
 			echo $ans;
 		}
 	}

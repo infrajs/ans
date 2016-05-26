@@ -9,7 +9,7 @@ if (!is_file('vendor/autoload.php')) {
  * Ans::ans([array $ans]) - Используется для вывода данных в формате json.
  */
 
-$orig=Ans::$conf['isReturn'];
+$orig = Ans::$conf['isReturn'];
 Ans::$conf['isReturn'] = function () {
 	return false;
 };
@@ -87,5 +87,7 @@ assert(50.0 === $res);
 $res = Ans::GET('test', 'object');
 assert(50 === $res->scalar);
 
+
+header('Content-type:text/html; charset=utf-8');
 echo '{"result":1}';
-Ans::$conf['isReturn']=$orig;
+Ans::$conf['isReturn'] = $orig;
