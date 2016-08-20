@@ -106,9 +106,18 @@ class Ans
 			"string"
 			"null"
 		*/
-		if (!isset($_GET[$name])) return $def;
-		$val=$_GET[$name];
-		if($type) settype($val, $type);
+		
+		if (!isset($_GET[$name])) {
+			if (is_array($type)) return $type[0]; //Список вариантов
+			return $def;
+		}
+
+		$val = $_GET[$name];
+		if (is_array($type)) {
+			if (!in_array($val, $type)) return $type[0]; //Список вариантов
+		} else if ($type) {
+			settype($val, $type);
+		}
 		return $val;
 	}
 }
