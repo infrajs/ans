@@ -98,6 +98,28 @@ class Ans
 			echo $ans;
 		}
 	}
+	public static function REQ($name, $type = null, $def = null){
+		/*
+			"bool"
+			"int"
+			"float"
+			"string"
+			"null"
+		*/
+		
+		if (!isset($_REQUEST[$name])) {
+			if (is_array($type)) return $type[0]; //Список вариантов
+			return $def;
+		}
+
+		$val = $_REQUEST[$name];
+		if (is_array($type)) {
+			if (!in_array($val, $type)) return $type[0]; //Список вариантов
+		} else if ($type) {
+			settype($val, $type);
+		}
+		return $val;
+	}
 	public static function GET($name, $type = null, $def = null){
 		/*
 			"bool"
