@@ -108,13 +108,12 @@ class Ans
 		*/
 		
 		if (!isset($_REQUEST[$name])) {
-			if (is_array($type)) return $type[0]; //Список вариантов
 			return $def;
 		}
 
 		$val = $_REQUEST[$name];
 		if (is_array($type)) {
-			if (!in_array($val, $type)) return $type[0]; //Список вариантов
+			if (!in_array($val, $type)) return $def; //Список вариантов
 		} else if ($type) {
 			settype($val, $type);
 		}
@@ -130,13 +129,13 @@ class Ans
 		*/
 		
 		if (!isset($_GET[$name])) {
-			if (is_array($type)) return $type[0]; //Список вариантов
+			if (is_array($type)) return $def; //Список вариантов
 			return $def;
 		}
 
 		$val = $_GET[$name];
 		if (is_array($type)) {
-			if (!in_array($val, $type)) return $type[0]; //Список вариантов
+			if (!in_array($val, $type)) return $def; //Список вариантов
 		} else if ($type) {
 			settype($val, $type);
 		}
