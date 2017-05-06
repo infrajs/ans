@@ -25,7 +25,7 @@ class Ans
 			$ans['msg'] .= '<pre><code>'.print_r($data, true).'</code></pre>';
 		}
 
-		error_log(basename(__FILE__).$msg);
+		error_log($msg);
 
 		return static::ans($ans);
 	}
