@@ -38,10 +38,10 @@ class Ans
 
 		return static::ans($ans);
 	}
+
 	public static function ans($ans = array())
 	{
-		$fn=static::$conf['isReturn'];
-
+		$fn = static::$conf['isReturn'];
 		if ($fn()) {
 			return $ans;
 		} else {
@@ -98,6 +98,10 @@ class Ans
 			echo $ans;
 		}
 	}
+	public static function isReturn(){
+		return static::$conf['isReturn']();
+	}
+
 	public static function REQ($name, $type = null, $def = null){
 		/*
 			"bool"
