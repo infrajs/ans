@@ -5,22 +5,19 @@ use infrajs\nostore;
 class Ans
 {
 	public static $conf = array();
-	public static function err($ans = array(), $msg = null)
+	public static function err($ans = array(), $msg = null, $code = false)
 	{
 		$ans['result'] = 0;
 		//Nostore::on();
-		if ($msg) {
-			$ans['msg'] = $msg;
-		}
+		if ($msg) $ans['msg'] = $msg;
+		if ($code) $ans['code'] = $code;
 
 		return static::ans($ans);
 	}
 	public static function log($ans = array(), $msg = '', $data = null, $debug = false)
 	{
 		$ans['result'] = 0;
-		if ($msg) {
-			$ans['msg'] = $msg;
-		}
+		if ($msg) $ans['msg'] = $msg;
 		if ($debug) {
 			$ans['msg'] .= '<pre><code>'.print_r($data, true).'</code></pre>';
 		}
@@ -116,11 +113,26 @@ class Ans
 		}
 
 		$val = $_REQUEST[$name];
+		$val = trim($val);
 		if (is_array($type)) {
 			if (!in_array($val, $type)) return $def; //Список вариантов
 		} else if ($type) {
 			settype($val, $type);
 		}
+		return $val;
+	}
+	public static function VAL($name, $type = null, $def = null){
+		if (isset($_GET[$name])) $val = $_GET[$name];
+		else if (isset($_POST[$name])) $val = $_POST[$name];
+		else if (isset($_COOKIE[$name])) $val = $_COOKIE[$name];
+		else return $def;
+		
+		$val = trim($val);
+		//$val = strip_tags($val);
+
+		if (is_array($type)) if (!in_array($val, $type)) return $def; //Список вариантов
+		else if ($type) settype($val, $type);
+		
 		return $val;
 	}
 	public static function GET($name, $type = null, $def = null){
@@ -138,6 +150,7 @@ class Ans
 		}
 
 		$val = $_GET[$name];
+		$val = trim($val);
 		if (is_array($type)) {
 			if (!in_array($val, $type)) return $def; //Список вариантов
 		} else if ($type) {
