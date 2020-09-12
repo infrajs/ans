@@ -98,7 +98,11 @@ class Ans
 	public static function isReturn(){
 		return static::$conf['isReturn']();
 	}
-
+	public static function REQS($name, $type = null, $def = null){
+		$res = Ans::REQ($name, $type, $def);
+		if (is_string($res)) $res = strip_tags($res);
+		return $res;
+	}
 	public static function REQ($name, $type = null, $def = null){
 		/*
 			"bool"
