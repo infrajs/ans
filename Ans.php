@@ -99,9 +99,13 @@ class Ans
 		return static::$conf['isReturn']();
 	}
 	public static function REQS($name, $type = null, $def = null){
-		$res = Ans::REQ($name, $type, $def);
-		if (is_string($res)) $res = strip_tags($res);
-		return $res;
+		if (!isset($_REQUEST[$name])) return $def;
+		$val = $_REQUEST[$name];
+		$val = trim($val);
+		if (is_array($type)) return in_array($val, $type) ? $val : $def;
+		if ($type) settype($val, $type);
+		if (is_string($val)) $val = strip_tags($val);
+		return $val;
 	}
 	public static function REQ($name, $type = null, $def = null){
 		/*
