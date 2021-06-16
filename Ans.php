@@ -101,10 +101,10 @@ class Ans
 	public static function REQS($name, $type = null, $def = null){
 		if (!isset($_REQUEST[$name])) return $def;
 		$val = $_REQUEST[$name];
-		$val = trim($val);
+		$val = Ans::trim($val);
 		if (is_array($type)) return in_array($val, $type) ? $val : $def;
 		if ($type) settype($val, $type);
-		if (is_string($val)) $val = strip_tags($val);
+		$val = Ans::strip($val);
 		return $val;
 	}
 	public static function REQ($name, $type = null, $def = null){
@@ -119,13 +119,32 @@ class Ans
 		if (!isset($_REQUEST[$name])) {
 			return $def;
 		}
-
 		$val = $_REQUEST[$name];
-		$val = trim($val);
+		$val = Ans::trim($val);
 		if (is_array($type)) {
 			if (!in_array($val, $type)) return $def; //Список вариантов
 		} else if ($type) {
 			settype($val, $type);
+		}
+		return $val;
+	}
+	public static function trim($val) {
+		if (is_array($val)) {
+			foreach ($val as $i => $v) {
+				$val[$i] = Ans::trim($v);
+			}
+		} else {
+			$val = trim($val);	
+		}
+		return $val;
+	}
+	public static function strip($val) {
+		if (is_array($val)) {
+			foreach ($val as $i => $v) {
+				$val[$i] = Ans::strip($v);
+			}
+		} else if (is_string($val)) {
+			$val = strip_tags($val);	
 		}
 		return $val;
 	}
@@ -135,7 +154,7 @@ class Ans
 		else if (isset($_COOKIE[$name])) $val = $_COOKIE[$name];
 		else return $def;
 		
-		$val = trim($val);
+		$val = Ans::trim($val);
 		//$val = strip_tags($val);
 
 		if (is_array($type)) if (!in_array($val, $type)) return $def; //Список вариантов
@@ -158,7 +177,7 @@ class Ans
 		}
 
 		$val = $_GET[$name];
-		$val = trim($val);
+		$val = Ans::trim($val);
 		if (is_array($type)) {
 			if (!in_array($val, $type)) return $def; //Список вариантов
 		} else if ($type) {
